@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - $(aws ecr get-login-password --region us-east-2| docker login --username AWS --password-stdin 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two)
+      - $(aws ecr get-login --no-include-email --region us-east-2)
   build:
     commands:
       - docker build -t fast_api:latest .
