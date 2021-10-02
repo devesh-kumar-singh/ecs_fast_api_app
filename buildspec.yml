@@ -7,10 +7,10 @@ phases:
   build:
     commands:
       - docker build -t fast_api:latest .
-      - docker tag fast_api:latest 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two
+      - docker tag fast_api:latest 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two:fast_api
   post_build:
     commands:
-      - docker push 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two
-      - printf '[{"name":my-taskdefinition-2,"imageUri":"%s"}]' 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two > imagedefinitions.json
+      - docker push 3399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two:fast_api
+      - printf '[{"name":my-taskdefinition-2,"imageUri":"%s"}]' 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two:fast_api > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
