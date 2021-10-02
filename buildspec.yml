@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - $(aws ecr get-login-password --region us-east-2| docker login --username AWS --password-stdin 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two)
+  build:
+    commands:
+      - docker build -t fast_api:latest .
+      - docker tag fast_api:latest 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two
+  post_build:
+    commands:
+      - docker push 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two
+      - printf '[{"name":my-taskdefinition-2,"imageUri":"%s"}]' 399885010453.dkr.ecr.us-east-2.amazonaws.com/repo_two > imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
